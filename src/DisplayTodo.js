@@ -1,13 +1,24 @@
-import React from "react";
+import React, { Component } from "react";
+import { connect } from "react-redux";
 
-const DisplayTodo = () => {
-  return (
-    <React.Fragment>
-      <center>
-        <p>This is DisplayTodo</p>
-      </center>
-    </React.Fragment>
-  );
+class DisplayTodo extends Component {
+  render() {
+    console.log(this.props.todos);
+    return (
+      <React.Fragment>
+        <center>
+          {this.props.todos.map((todo) => (
+            <p>{todo.description}</p>
+          ))}
+        </center>
+      </React.Fragment>
+    );
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    todos: state,
+  };
 };
-
-export default DisplayTodo;
+export default connect(mapStateToProps)(DisplayTodo);

@@ -45,14 +45,9 @@ class Form extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    todos: state,
-  };
-};
 const mapDispatchToProps = (dispatch) => {
   return {
     addtodo: (item) => dispatch(todoAdded(item)),
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Form);
+export default connect(null, mapDispatchToProps)(Form);
