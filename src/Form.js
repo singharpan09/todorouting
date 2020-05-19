@@ -25,7 +25,10 @@ class Form extends Component {
     });
   };
   render() {
-    console.log(this.props.todos);
+    const NumberOftodos =
+      this.props.todos.length === 0
+        ? `You have no todos for the day`
+        : `You have #${this.props.todos.length} todos for the day`;
     return (
       <React.Fragment>
         <center>
@@ -39,15 +42,23 @@ class Form extends Component {
             />
             <br /> <button type="submit">Submit</button>
           </form>
+          <br />
+          <p>{NumberOftodos}</p>
         </center>
       </React.Fragment>
     );
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    todos: state,
+  };
+};
+
 const mapDispatchToProps = (dispatch) => {
   return {
     addtodo: (item) => dispatch(todoAdded(item)),
   };
 };
-export default connect(null, mapDispatchToProps)(Form);
+export default connect(mapStateToProps, mapDispatchToProps)(Form);

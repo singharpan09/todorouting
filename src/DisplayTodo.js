@@ -1,14 +1,29 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { todoCompleted } from "./actions";
+import "./DisplayTodo.css";
 
 class DisplayTodo extends Component {
+  handlechange = (todo) => {
+    this.props.todocomplete(todo);
+  };
   render() {
-    console.log(this.props.todos);
     return (
       <React.Fragment>
         <center>
           {this.props.todos.map((todo) => (
-            <p>{todo.description}</p>
+            <p key={todo.id}>
+              {todo.description}
+              <input
+                className="todo"
+                type="checkbox"
+                checked={todo.completed}
+                onChange={() => this.handlechange(todo)}
+              />
+              {todo.completed === true && (
+                <span className="badge badge-secondary">Completed</span>
+              )}
+            </p>
           ))}
         </center>
       </React.Fragment>
@@ -21,4 +36,10 @@ const mapStateToProps = (state) => {
     todos: state,
   };
 };
-export default connect(mapStateToProps)(DisplayTodo);
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    todocomplete: (todo) => dispatch(todoCompleted(todo)),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(DisplayTodo);
