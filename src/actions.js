@@ -9,11 +9,13 @@ export const todoAdded = (description) => {
   };
 };
 
-export const todoCompleted = (id) => {
+export const todoCompleted = (todo) => {
   return {
     type: actions.TODO_COMPLETED,
     payload: {
-      id: id,
+      id: todo.id,
+      description: todo.description,
+      completed: todo.completed,
     },
   };
 };

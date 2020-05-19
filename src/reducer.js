@@ -14,7 +14,13 @@ const reducer = (state = initialState, action) => {
         },
       ];
     case actions.TODO_COMPLETED:
-      return state;
+      return state.map((todo) =>
+        todo.id !== action.payload.id
+          ? todo
+          : todo.completed === true
+          ? { ...todo, completed: false }
+          : { ...todo, completed: true }
+      );
 
     default:
       return state;
